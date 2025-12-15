@@ -3,12 +3,14 @@ interactively asks for kubeconfig file and context before opening k9s (using fzf
 
 
 
-## Shell Function
+## Installation
 
-1. Append to your `.bashrc` or `.zshrc` 
+To add the `k9x` function to your shell, append the following code to your shell's configuration file ( `~/.bashrc`  or `~/.zshrc`):
 
-    ```bash
-    k9x() {
+1. Append to your `~/.bashrc` or `~/.zshrc` 
+
+```bash
+k9x() {
     local kubeconfig
     local context
     # list kubeconfig files and select one with fzf
@@ -17,23 +19,28 @@ interactively asks for kubeconfig file and context before opening k9s (using fzf
 
     # for the selected config, choose a context
     context=$(KUBECONFIG="$HOME/.kube/$kubeconfig" kubectx | fzf)
-    
+
     # open k9s 
     k9s --splashless -A -c pod --kubeconfig "$HOME/.kube/$kubeconfig" --context "$context"
-    }
-    ```
+}
+```
 
 2. Reload your config
-    ```bash
-    source ~/.zshrc
-    source ~/.bashrc
-    ```
+
+```bash
+source ~/.zshrc
+source ~/.bashrc
+```
+
 ## Usage
+
+Simply run `k9x` in your terminal:
 
 ```bash
 k9x
 ```
 
+The function will guide you through selecting your `kubeconfig` and context.
 
 ## Dependencies
 
